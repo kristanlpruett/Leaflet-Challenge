@@ -38,3 +38,26 @@ function markerColor(depth) {
         return "#FF0000"
     }
 };
+
+d3.json(queryUrl, function(d) {
+    var features = d.features
+    var featureGroup = L.layerGroup()
+    var featureMarker = L.marker()
+        
+    features.forEach(function (feature) {
+        var coords = [feature.geometry.coordinates[1],feature.geometry.coordinates[0]]
+        L.circle(coords,{
+            stroke: false,
+            fillOpacity: .75,
+            color: markerColor(feature.geometry.coordinates[2]),
+            fillColor: markerColor(feature.geometry.coordinates[2]),
+            radius: markerSize(feature.properties.mag)
+        }).bindPopup(
+            `<ul>
+                <li><strong>Location:</strong> ${feature.properties.place}</li>
+                <li><strong>Magnitude:</strong> ${feature.properties.mag}</li>
+                <li><strong>Depth:</strong> ${feature.geometry.coordinates[2]}</li>
+            </ul>`)
+        .addTo(myMap)
+    })
+})
