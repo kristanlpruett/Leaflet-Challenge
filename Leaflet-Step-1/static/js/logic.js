@@ -24,3 +24,17 @@ var newIcon = L.icon({
 function markerSize(mag) {
     return (mag**3)*1500;
 };
+
+function markerColor(depth) {
+    if (depth < 50) {
+        return "#00FF00"
+    } else if (depth <100) {
+        return "#80FF00"
+    } else if (depth <150) {
+        return "#FFFF00"
+    } else if (depth < 200) {
+        return "#FF8000"
+    } else {
+        return "#FF0000"
+    }
+};
